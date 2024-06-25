@@ -1,0 +1,29 @@
+----подключение----
+<?php
+$pdo = new PDO('mysql:host=localhost;dbname=EKZ_Ситников;charset=utf8', 'root', '', [
+	PDO::ATTR_DEFAULT_FETCH_MODE => PDO::FETCH_ASSOC
+]);
+?>
+подключение к файлу <? require_once ("db.php");
+?>
+---заполнение input(??)---
+  <?php
+require 'db.php';
+
+$stmt = $pdo->query('SELECT value FROM table_name WHERE id = 1');
+$row = $stmt->fetch();
+?>
+<input type="text" name="input_name" value="<?php echo htmlspecialchars($row['value']); ?>">
+---заполнение select(??)---
+  <?php
+require 'db.php';
+
+$stmt = $pdo->query('SELECT id, name FROM table_name');
+?>
+<select name="select_name">
+    <?php while ($row = $stmt->fetch()): ?>
+        <option value="<?php echo htmlspecialchars($row['id']); ?>">
+            <?php echo htmlspecialchars($row['name']); ?>
+        </option>
+    <?php endwhile; ?>
+</select>
